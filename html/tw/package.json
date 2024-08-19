@@ -1,8 +1,5 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.4.10"
-  }
-  "name": "tw",
+  "name" : "tw",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,6 +8,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
-
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
+  }
 }
