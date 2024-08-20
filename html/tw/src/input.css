@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+
+    input.inp {
+        @apply px-2 py-1 border rounded-md w-full focus:outline-none focus:ring-0 focus:border-blue-500
+
+    }
+}
+
+@layer utilities{
+    .test-rrr{
+        color:blueviolet;
+    }
+}
+
+@layer components{
+    
+    .btn{
+        
+        @apply rounded-md px-2 py-1 border-spacing-2 hover:bg-slate-100 uppercase shadow-md;
+    }
+}
+
