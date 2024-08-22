@@ -15,21 +15,24 @@
 //   console.log(id, name);
 // };
 
-// const user = { id: 1, name: "Hong", passwd: "xxx", addr: "Seoul" };
-// const { id, name, addr } = user;
-// const 3 = { id, name, addr };
+const user = { id: 1, name: "Hong", passwd: "xxx", addr: "Seoul" };
 
-// console.log("🚀 ~ userInfo:", userInfo);
+const { passwd, ...userInfo } = user;; 
+
+console.log("🚀 ~ userInfo:", userInfo);
 
 const arr = [[{ id: 1 }], [{ id: 2 }, { id: 3 }]];
-const id1 = arr[0][0].id;
-const id2 = arr[1][0].id;
-const id3 = arr[1][1].id;
+// const id1 = arr[0][0].id;
+// const id2 = arr[1][0].id;
+// const id3 = arr[1][1].id;
+const [[{ id: id1 }], [{ id: id2 }, { id: id3 }]] = arr;
 console.log(id1, id2, id3);
 
-const user = { name: "Hong", passwd: "xyz", addr: "Seoul" };
+const user1 = { name: "Hong", passwd: "xyz", addr: "Seoul" };
 function getValueExceptInitial(k) {
-  c;
+    const { [k]: val } = user; // (가) 디스트럭처링을 사용해 k에 해당하는 값을 val에 할당
+  const [, ...rest] = val;    // (나) val의 첫 글자를 제외한 나머지 부분을 rest에 할당
+  return rest.join('');       // (다) rest 배열을 문자열로 변환하여 반환
 }
 
 console.log(getValueExceptInitial("name")); // 'ong'
