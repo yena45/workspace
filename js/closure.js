@@ -96,3 +96,67 @@ function makeArrayTCO2(a, arr=[]){
 }
 
 console.log("makeArrayTCO2",makeArrayTCO2(5));
+
+
+//피보나치 수열 연습문제
+
+function loopFibonacci(n){
+    next = [0,1];
+    if (n <= 1){ return n};
+    for (let i = 2; i<=n; i++){
+        next[i] = next[i-2] + next[i-1];
+    }
+    return next[n];
+}
+console.log("🚀 ~ loopFibonacci:", loopFibonacci(5));
+console.log("🚀 ~ loopFibonacci:", loopFibonacci(7));
+
+//다른 답
+function loopFibonacci1(n){
+    if (n <= 1) return n;
+    let prev = 0;
+    let curr =1;
+    for (let i = 2; i<=n;i++){
+        let prev =t;
+        prev = curr;
+        curr = t + curr;
+    }
+    return curr;
+}
+
+function loopFibonacci2(n){
+    next = [0,1];
+    if (n <= 1){ return n};
+    for (let i = 2; i<=n; i++){
+        [next[0],next[1]] = [next[1],next[0]+next[1]];
+    }
+    return next[1];
+}
+
+console.log("🚀 ~ loopFibonacci2 ", loopFibonacci2(5))
+
+function recursiveFibonacci(n){
+    if (n <= 1) return n;
+    return recursiveFibonacci(n-2) + recursiveFibonacci(n-1);
+}
+
+console.log("🚀 ~ recursiveFibonacci(5):", recursiveFibonacci(5));
+console.log("🚀 ~ recursiveFibonacci(7):", recursiveFibonacci(7));
+console.log("🚀 ~ recursiveFibonacci(15):", recursiveFibonacci(15));
+
+function memoized(fn) { // 범용 memoized function
+    const memoizedTable = {};
+    return function B(k) {
+      return memoizedTable[k] || (memoizedTable[k] = fn(k));
+    };
+  }
+
+  
+const memoizedFibonacci = memoized(function A(n) {
+    
+    if (n <= 1) return n;
+    return memoizedFibonacci(n - 2) + memoizedFibonacci(n - 1);
+  });
+
+console.log("🚀 ~ memoizedFibonacci ~ memoizedFibonacci:", memoizedFibonacci(15));
+
