@@ -1,8 +1,5 @@
 const assert = require('assert');
 
-
-
-
 const range = (start,end,step = start > end ? -1 : 1) =>{
     if (step === 0 || start === end) return [start];
 
@@ -22,6 +19,7 @@ const range = (start,end,step = start > end ? -1 : 1) =>{
 
     let tmp =start;
     end = end ?? (start > 0 ? (start =1, tmp): (start <0 ? -1:0));
+
 
     const result=[];
 

@@ -147,8 +147,6 @@ const keyPairN2 = (arr,n) => {
     }
 }
 
-//
-
 const keyPair = (arr,n) =>{
     const cache ={};
     for (let i = 0; i < arr.length; i++){
@@ -167,3 +165,4 @@ assert.deepStrictEqual(keyPair([1, 3, 4, 5], 7), [1, 2]);
 assert.deepStrictEqual(keyPair([1, 4, 45, 6, 10, 8], 16), [3, 4]);
 assert.deepStrictEqual(keyPair([1, 2, 4, 3, 6], 10), [2, 4]);
 assert.deepStrictEqual(keyPair([1, 2, 3, 4, 5, 7], 9), [3, 4]);
+

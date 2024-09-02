@@ -32,7 +32,7 @@ console.log(`${id}/${nickname}/${email}/${level}`);
 const template = (f) => {
     return (...arg) => {
         before();
-        result = f(...arg);
+        const result = f(...arg);
         after();
         return result;
     }
@@ -44,3 +44,5 @@ const temp2 = template(someFn2);  // before → someFn2 → after 실행
 temp('sico', 'hello');
 temp2(1, 'sico', 'sico@gmail.com', 5);
 console.log('square of 7 =', template(n => n ** 2)(7));
+
+

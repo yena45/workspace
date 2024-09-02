@@ -70,6 +70,18 @@ const data = [
     ['B', 30, 40], 
     ['C', 50, 60, 70]
 ]
+
+function makeObjectFromArray1(array) {
+    const retObj1 = {};
+    for (const [key, ...val] of array){
+        retObj1[key] = vals;
+    }
+
+  }
+
+console.log("🚀 ~ makeObjectFromArray", makeObjectFromArray1(data));
+
+
 function makeObjectFromArray(array) {
     const retObj = {};
     for (const [key, ...vals] of array) {

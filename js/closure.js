@@ -147,13 +147,12 @@ console.log("🚀 ~ recursiveFibonacci(15):", recursiveFibonacci(15));
 function memoized(fn) { // 범용 memoized function
     const memoizedTable = {};
     return function B(k) {
-      return memoizedTable[k] || (memoizedTable[k] = fn(k));
+      return memoizedTable[k] ?? (memoizedTable[k] = fn(k));
     };
   }
 
   
 const memoizedFibonacci = memoized(function A(n) {
-    
     if (n <= 1) return n;
     return memoizedFibonacci(n - 2) + memoizedFibonacci(n - 1);
   });
