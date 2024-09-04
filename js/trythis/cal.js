@@ -1,8 +1,9 @@
 let today = new Date();
 
-console.log(`${today.getMonth()+1}월`, `${today.getFullYear()}`);
+console.log(`${today.getMonth()+1}월`.padStart(5, ' '), `${today.getFullYear()}`);
 
 const days = ['일','월','화','수','목','금','토'];
+console.log(...days);
 
 let calendar = [];
 
@@ -14,9 +15,10 @@ for (let i = 0; i < startDay.getDay(); i++) {
     calendar.push("   "); 
 }
 
-
-
 for (let i = 1 ; i <= lastDay; i++){
+    if (today.getDate() == i ){
+        
+    }
     calendar.push(String(i).padStart(2, ' ') + ' ');
 }
 
