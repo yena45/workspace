@@ -1,15 +1,24 @@
 {
-  "name": "hana4js",
+  "name": "hana4jspractice",
   "version": "1.0.0",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "moment": "^2.30.1"
-  }
+  },
+  "main": "array.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yena45/workspace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yena45/workspace/issues"
+  },
+  "homepage": "https://github.com/yena45/workspace#readme",
+  "description": ""
 }

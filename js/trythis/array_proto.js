@@ -1,4 +1,5 @@
 import assert from 'assert';
+import '../utils/array-utils.js';
 
 Object.defineProperties(Array.prototype, {
   firstObject: {
