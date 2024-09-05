@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // const readline = require('readline');
 // const { stdin: input} = require('process');
@@ -76,42 +76,61 @@ const LINE2 = [
     '을지로입구'
   ]
   
-  class Subway {
+//   class Subway {
+//     #currIdx;
+//     #start;
+//     #end;
+//     #didEnd = false;
+//     constructor(start, end) {
+//       this.#start = start;
+//       this.#currIdx = LINE2.indexOf(start);
+//       this.#end = end;
+//     }
+  
+//     nextStation() {
+//       if (this.#currIdx === LINE2.length) this.#currIdx = 0;
+//       const currStation = LINE2[this.#currIdx++];
+//       // this.#didEnd = this.#currIdx === LINE2.indexOf(this.#end);
+//       this.#didEnd = currStation === this.#end;
+//       return currStation;
+//     }
+  
+//     *[Symbol.iterator]() {
+//       while (true) {
+//         if (this.#didEnd) {
+//           this.#didEnd = false;
+//           this.#currIdx = LINE2.indexOf(this.#start);
+//           break;
+//         }
+  
+//         yield this.nextStation();
+//       }
+//     }
+  
+//     toString() {
+//       return `${this.#start}역에서 출발하여 ${
+//         this.#end
+//       }역까지 가는 중. 현재 역은 ${LINE2[this.#currIdx]}입니다.`;
+//     }
+//   }
+
+  class Subway{
     #currIdx;
     #start;
     #end;
-    #didEnd = false;
-    constructor(start, end) {
-      this.#start = start;
-      this.#currIdx = LINE2.indexOf(start);
-      this.#end = end;
+    constructor(start,end){
+        this.#currIdx = 
+        this.#start = start;
+        this.#end = end; 
     }
-  
-    nextStation() {
-      if (this.#currIdx === LINE2.length) this.#currIdx = 0;
-      const currStation = LINE2[this.#currIdx++];
-      // this.#didEnd = this.#currIdx === LINE2.indexOf(this.#end);
-      this.#didEnd = currStation === this.#end;
-      return currStation;
+
+    *[Symbol.iterator](){
+        if (this.#currIdx == this.#end) return;
+
+        
+
     }
-  
-    *[Symbol.iterator]() {
-      while (true) {
-        if (this.#didEnd) {
-          this.#didEnd = false;
-          this.#currIdx = LINE2.indexOf(this.#start);
-          break;
-        }
-  
-        yield this.nextStation();
-      }
-    }
-  
-    toString() {
-      return `${this.#start}역에서 출발하여 ${
-        this.#end
-      }역까지 가는 중. 현재 역은 ${LINE2[this.#currIdx]}입니다.`;
-    }
+
   }
   
   const routes = new Subway('문래', '신림');

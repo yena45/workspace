@@ -2,7 +2,7 @@
 // 2) 이 달의 날짜 5개를 무작위(rand)로 만들어 역순으로 정렬하시오.
 // 3) 내년(2025년)의 오늘(9월 3일)의 요일을 출력하시오.
 //  4) 오늘(9월 3일)로 부터 100일 후의 날짜는?
-const assert = require('assert');
+import assert from 'assert';
 const moment = require('moment');
 
 milsec1 = new Date("1970-01-02").getTime();
@@ -55,7 +55,7 @@ function ex2() {
 
 const d = new Date();
 d.setFullYear(d.getFullYear()+1);
-const nextYearWeek = d.getDay();
+const nextYearWeek = '일월화수목금토'[d.getDay()];
 console.log("🚀 ~ nextYearWeek:", nextYearWeek);
 
 ex4 = moment().add(100, 'days');
@@ -87,3 +87,24 @@ console.log("🚀 ~ ex4:", ex4);
 // console.log(
 //   `오늘부터 100일 후는 ${next100.getFullYear()}년 ${next100.getMonth()}월 ${next100.getDate()}일 입니다.`
 // );
+
+
+const debounce = (cb,delay) => {
+    let timer;
+    return (...args) => {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(cb,delay,...args);
+    }
+}
+
+const throttle = (cb,delay) => {
+    let timer;
+    return (...args) => {
+        if (timer) return;
+        timer = setTimeout(()=>{
+        cb(...args);
+        timer = null;
+    })
+    
+    }
+}

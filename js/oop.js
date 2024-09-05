@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 const obj = {id: 1, name: 'Hong'};
 // cf. obj = {..., __proto__: { x: 11 }};

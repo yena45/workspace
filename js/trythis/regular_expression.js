@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // const regexp = /senior|coding/gi;
 // if (regexp.test('Junior Developer')) console.log('OK1');
