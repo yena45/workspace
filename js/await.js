@@ -18,10 +18,25 @@ const rrr = (await Promise.all(ps)).filter(
 console.log('rrr=', rrr);
 // await new Promise(resove => setTimeout(resolve, 2000));
 
-
-const vals = [1, 2, 3];
-const randTime = val =>
-	new Promise(resolve => setTimeout(resolve, Math.random() * 1000, val));
+const promiseAll = promises => new Promise(
+    (resolve, reject) => {
+        const results =[];
+        let cntToRun = promises.length;
+        for (let i=0; i< promises.length; i++){
+            promises[i].then(succ=> {
+                results[i] =succ;
+                cntToRun--;
+                if(cntToRun ===0) resolve(results);
+            }).catch(reject);
+            resolve(results);
+        }
+    });
+    
+    const vals = [1, 2, 3];
+    const randTime = val =>
+        new Promise(resolve => setTimeout(resolve, Math.random() * 1000, val));
+    
+const arr = await promiseAll([])
 
 promiseAllAsync([randTime(1), randTime(2), randTime(3)]).then(arr => {
   console.table(arr);
