@@ -13,9 +13,9 @@ const kim = { id: 2, name: 'Kim', addr: 'Seoul' };
 const arr0: Emp[] = [{ id: 1, name: 'Hong' }];
 const arr1: Emp[] = [{ id: 1, name: 'Hong' }, kim];
 const arr2: Emp[] = [{ id: 2, name: 'Kim', addr: 'Seoul' }, kim];
-const arr3: Emp[] = [{ id: 2, name: 'Kim', addr: 'Seoul' }, lee];
+// const arr3: Emp[] = [{ id: 2, name: 'Kim', addr: 'Seoul' }, lee];
 
-const arr4: [User, Emp] = [{ id: 2, name: 'Kim', addr: 'Seoul' }, kim];
+// const arr4: [User, Emp] = [{ id: 2, name: 'Kim', addr: 'Seoul' }, kim];
 
 type Emp2 = { id: number; name: string; addr: string };
 type Emp3 = { id: number; name: string; road: string };
