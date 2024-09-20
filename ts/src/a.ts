@@ -1,1 +1,1 @@
-const shared =1;
+const shared = 1;
