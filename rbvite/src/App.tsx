@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import Hello, { MyHandler } from './components/Hello';
 import My from './components/My';
 // import { flushSync } from 'react-dom';
+import { type LoginHandler } from './components/Login';
 
 const SampleSession = {
   loginUser: { id: 1, name: 'Hong' },
@@ -23,24 +24,28 @@ function App() {
   const myHandleRef = useRef<MyHandler>(null);
 
   const plusCount = () => {
-    // setCount((pre) => pre + 1);
     setCount((pre) => {
       const newer = pre + 1;
-      // 여기서 변경된 newer(count)를 사용해야 함!
       return newer;
     });
-    // flushSync(() => setCount((c) => c + 1));
     console.log('🚀  count:', count, document.getElementById('cnt')?.innerText);
   };
   const minusCount = () => setCount(count - 1);
 
   const logout = () => setSession({ ...session, loginUser: null });
 
+  const loginRef = useRef<LoginHandler>(null);
+
   const login = (id: number, name: string) =>
     setSession({
       ...session,
       loginUser: { id, name },
     });
+
+  const addCartItem = (name: string, price: number) => {
+    const id = Math.max(...session.cart.map(({ id }) => id), 0) + 1;
+    setSession({ ...session, cart: [...session.cart, { id, name, price }] });
+  };
 
   const removeCartItem = (toRemoveId: number) => {
     setSession({
@@ -50,7 +55,7 @@ function App() {
   };
 
   return (
-    <div className='mt-5 flex flex-col items-center'>
+    <div className='flex flex-col items-center'>
       <Hello
         name='홍길동'
         age={33}
@@ -60,25 +65,27 @@ function App() {
         ref={myHandleRef}
       />
       <hr />
-      <pre>{JSON.stringify(session.loginUser)}</pre>
       <My
         session={session}
         logout={logout}
         login={login}
         removeCartItem={removeCartItem}
+        addCartItem={addCartItem}
+        ref={loginRef}
       />
-      <div className='card'>
+      {/* <div className='card'>
         <button
           onClick={() => {
             setCount((count) => count + 1);
             if (session.loginUser) session.loginUser.name = 'XXX' + count;
             console.table(session.loginUser);
+            myHandleRef.current?.jumpHelloState();
           }}
           className='btn'
         >
           App.count is {count}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
