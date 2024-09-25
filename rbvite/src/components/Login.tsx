@@ -1,27 +1,14 @@
-import {
-  FormEvent,
-  ForwardedRef,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { FormEvent, useImperativeHandle, useRef } from 'react';
 import Button from './atoms/Button';
 import LabelInput from './molecules/LabelInput';
+import { useSession } from './hooks/session-context';
 
 export type LoginHandler = {
   focus: (prop: string) => void;
 };
 
-export default forwardRef(function Login(
-  {
-    login,
-  }: {
-    login: (id: number, name: string) => void;
-  },
-  ref: ForwardedRef<LoginHandler>
-) {
-  // const [id, setId] = useState(0);
-  // const [name, setName] = useState('');
+export default function Login() {
+  const { login, loginRef } = useSession();
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -31,17 +18,10 @@ export default forwardRef(function Login(
       if (prop === 'name') nameRef.current?.focus();
     },
   };
-
-  useImperativeHandle(ref, () => handler);
+  useImperativeHandle(loginRef, () => handler);
 
   const signIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const id = idRef.current?.value;
-    // const name = nameRef.current?.value;
-    // if (!id || !name) {
-    //   alert('Input the id & name!!');
-    //   return;
-    // }
     const id = idRef.current?.value ?? 0;
     const name = nameRef.current?.value ?? '';
     login(+id, name);
@@ -66,12 +46,39 @@ export default forwardRef(function Login(
             ref={nameRef}
             placeholder='Name...'
             className='inp'
+            // onChange={changeName}
           />
         </div>
+        {/* <div className='flex'>
+        <label htmlFor='id' className='w-24'>
+          ID:
+        </label>
+        <input
+          id='id'
+          type='number'
+          placeholder='ID...'
+          className='inp mb-3'
+          // onChange={(e) => setId(+e.currentTarget.value)}
+        />
+      </div> */}
+        {/* <div className='flex'>
+        <label htmlFor='name' className='w-24'>
+          Name:
+        </label>
+        <input
+          id='name'
+          type='text'
+          autoComplete='off'
+          placeholder='Name...'
+          className='inp'
+          // onChange={(e) => setName(e.currentTarget.value)}
+        />
+      </div> */}
+        {/* <button className='btn btn-success float-end mt-3'>Sign In</button> */}
         <Button type='submit' variant='btn-success' classNames='float-end mt-3'>
           Sign In
         </Button>
       </form>
     </>
   );
-});
+}
