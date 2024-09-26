@@ -1,55 +1,69 @@
-import { FaPlus, FaTrashCan } from 'react-icons/fa6';
+import { FaPlus } from 'react-icons/fa6';
 import Login from './Login.tsx';
 import Profile from './Profile.tsx';
 import Button from './atoms/Button.tsx';
-import { FormEvent, useRef, useState } from 'react';
-import { FaRedo, FaSave } from 'react-icons/fa';
-import { useCounter } from './hooks/counter-hook.tsx';
+import { useEffect, useRef } from 'react';
 import { useSession } from './hooks/session-context.tsx';
+import Item from './Item.tsx';
+import useToggle from './hooks/toggle.ts';
+import { useTimeout } from './hooks/timer-hooks.ts';
 
 export default function My() {
-  const { session, removeCartItem, addCartItem } = useSession();
-  const { plusCount } = useCounter();
-  const [isEditing, setIsEditing] = useState(false);
+  const { session, toggleReloadSession } = useSession();
   const logoutButtonRef = useRef<HTMLButtonElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const priceRef = useRef<HTMLInputElement>(null);
 
-  const toggleEditing = () => {
-    setIsEditing((pre) => !pre);
-    plusCount();
-  };
+  // const [isAdding, setIsAdding] = useState(false);
+  // const toggleAdding = () => {
+  //   setIsAdding((pre) => !pre);
+  // };
+  const [isAdding, toggleAdding] = useToggle(true);
 
-  const removeItem = (id: number) => {
-    if (confirm('Are u sure?')) {
-      removeCartItem(id);
-    }
-  };
+  // const primitive = 123;
 
-  const saveItem = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const name = nameRef.current?.value;
-    const price = priceRef.current?.value;
-    // console.log('🚀  name/price:', name, price);
-    if (!name) {
-      alert('상품명을 입력하세요!');
-      return nameRef.current?.focus();
-    } else if (!price) {
-      alert('금액을 입력하세요!');
-      return priceRef.current?.focus();
-    }
+  // useEffect(() => {
+  //   console.log('*******11', primitive, isAdding);
 
-    addCartItem(name, +price);
-    nameRef.current.value = '';
-    priceRef.current.value = '';
-    nameRef.current.focus();
-  };
+  //   return () => console.log('unmount11!!');
+  // }, [primitive, isAdding]);
+
+  let xxx = 0;
+  // useEffect(() => {
+  //   console.log('*******22');
+  //   // alert('login plz...');
+
+  //   return () => console.log('unmount22!!');
+  // }, []);
+  useTimeout(() => {
+    xxx++;
+  }, 1000);
+
+  useEffect(() => {
+    // const abortController = new AbortController();
+    // const { signal } = abortController;
+    // (async function () {
+    //   try {
+    //     const data = await fetch('/data/sample.json', { signal }).then((res) =>
+    //       res.json()
+    //     );
+    //     console.log('My.data>>', data);
+    //   } catch (error) {
+    //     console.error('Error>>', error);
+    //   }
+    // })();
+    // fetch('/data/sample.json', { signal })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log('data>>', data);
+    //   })
+    //   .catch((error) => console.error('Error>>', error));
+    // return () => abortController.abort('Clean-up in My!');
+  }, []);
 
   return (
     <>
       {session.loginUser ? (
         <div className='flex gap-5'>
-          <Profile ref={logoutButtonRef} />
+          <Profile ref={logoutButtonRef} xxx={xxx} />
           <Button onClick={() => logoutButtonRef.current?.focus()}>
             MySignOut
           </Button>
@@ -60,54 +74,28 @@ export default function My() {
 
       <ul className='my-3 w-2/3 border p-3'>
         {session.cart?.length ? (
-          session.cart.map(({ id, name, price }) => (
-            <li key={id} className='flex justify-between'>
-              <strong>
-                {id}. {name}
-                <small className='ml-2 font-light text-gray-500'>
-                  {price.toLocaleString()}원
-                </small>
-              </strong>
-              <button
-                onClick={() => removeItem(id)}
-                className='btn btn-danger px-1 py-0'
-              >
-                <FaTrashCan />
-              </button>
+          session.cart.map((item) => (
+            <li key={item.id}>
+              <Item item={item} />
             </li>
           ))
         ) : (
           <li className='text-slate-500'>There is no items.</li>
         )}
         <li className='mt-3 text-center'>
-          {isEditing ? (
-            <form onSubmit={saveItem} className='mt-3 flex gap-3'>
-              <input
-                ref={nameRef}
-                type='text'
-                placeholder='name..'
-                className='inp'
-              />
-              <input
-                ref={priceRef}
-                type='number'
-                placeholder='price..'
-                className='inp'
-              />
-              <Button type='reset' onClick={toggleEditing}>
-                <FaRedo />
-              </Button>
-              <Button type='submit' variant='btn-primary'>
-                <FaSave />
-              </Button>
-            </form>
+          {isAdding ? (
+            <Item
+              item={{ id: 0, name: '', price: 0 }}
+              toggleAdding={() => toggleAdding()}
+            />
           ) : (
-            <Button onClick={toggleEditing}>
+            <Button onClick={toggleAdding}>
               <FaPlus /> Add Item
             </Button>
           )}
         </li>
       </ul>
+      <Button onClick={toggleReloadSession}>Reload Session</Button>
     </>
   );
 }
