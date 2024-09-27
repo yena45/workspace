@@ -2,7 +2,7 @@ import { FaPlus } from 'react-icons/fa6';
 import Login from './Login.tsx';
 import Profile from './Profile.tsx';
 import Button from './atoms/Button.tsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useSession } from './hooks/session-context.tsx';
 import Item from './Item.tsx';
 import useToggle from './hooks/toggle.ts';
@@ -16,7 +16,7 @@ export default function My() {
   // const toggleAdding = () => {
   //   setIsAdding((pre) => !pre);
   // };
-  const [isAdding, toggleAdding] = useToggle(true);
+  const [isAdding, toggleAdding] = useToggle();
 
   // const primitive = 123;
 
@@ -25,6 +25,17 @@ export default function My() {
 
   //   return () => console.log('unmount11!!');
   // }, [primitive, isAdding]);
+
+  const totalPrice = useMemo(
+    () => session.cart.reduce((acc, item) => acc + item.price, 0),
+    [session.cart]
+  );
+
+  const dcPrice = useMemo(() => totalPrice * 0.1, [totalPrice]);
+
+  useLayoutEffect(() => {
+    console.log('$$$$$$$$$$$$$$$$', totalPrice);
+  }, [totalPrice]);
 
   let xxx = 0;
   // useEffect(() => {
@@ -36,6 +47,14 @@ export default function My() {
   useTimeout(() => {
     xxx++;
   }, 1000);
+
+  useTimeout(
+    (name) => {
+      console.log(name, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    },
+    1000,
+    'YENA'
+  );
 
   useEffect(() => {
     // const abortController = new AbortController();
@@ -72,7 +91,7 @@ export default function My() {
         <Login />
       )}
 
-      <ul className='my-3 w-2/3 border p-3'>
+      <ul className='mt-3 w-2/3 border p-3'>
         {session.cart?.length ? (
           session.cart.map((item) => (
             <li key={item.id}>
@@ -95,6 +114,10 @@ export default function My() {
           )}
         </li>
       </ul>
+      <div className='mb-3 flex gap-5'>
+        <span>*총액: {totalPrice.toLocaleString()}원</span>
+        <span>*할인: {dcPrice.toFixed(0).toLocaleString()}원</span>
+      </div>
       <Button onClick={toggleReloadSession}>Reload Session</Button>
     </>
   );
