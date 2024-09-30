@@ -40,9 +40,11 @@ function useTimer<T extends (...args: Parameters<T>) => ReturnType<T>>(
   const timerRef = useRef<ReturnType<typeof this.timerFn>>();
 
   const { timerFn, clearFn } = this;
+
   const setup = useCallback(() => {
     timerRef.current = timerFn(cbRef.current, delay, ...argsRef.current);
   }, [delay, timerFn]);
+
   const clear = useCallback(() => clearFn(timerRef.current), [clearFn]);
   const reset = useCallback(() => {
     clear();
@@ -65,6 +67,39 @@ export const useInterval = useTimer.bind({
   timerFn: setInterval,
   clearFn: clearInterval,
 });
+
+export const useDebounceX = <
+  T extends (...args: Parameters<T>) => ReturnType<T>,
+>(
+  cb: T,
+  delay: number,
+  depArr: unknown[] = []
+) => {
+  const cbRef = useRef(cb);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | number>();
+
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(cbRef.current, delay);
+
+    return () => clearTimeout(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...depArr, delay]);
+};
+
+export const useDebounce = <T extends (...args: unknown[]) => ReturnType<T>>(
+  cb: T,
+  delay: number,
+  depArr: unknown[] = []
+) => {
+  const { reset, clear } = useTimeout(cb, delay);
+
+  useEffect(() => {
+    reset();
+    return clear;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...depArr, delay]);
+};
 
 // hook 규칙 위반!!
 // export const useInterval = <

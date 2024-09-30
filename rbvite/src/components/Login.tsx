@@ -9,7 +9,7 @@ import Button from './atoms/Button';
 import LabelInput from './molecules/LabelInput';
 import { useSession } from './hooks/session-context';
 import { useCounter } from './hooks/counter-hook';
-import { useInterval, useTimeout } from './hooks/timer-hooks';
+import { useTimeout } from './hooks/timer-hooks';
 // import { useCounter } from '../hooks/counter-hook';
 
 export type LoginHandler = {

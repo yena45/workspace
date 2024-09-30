@@ -29,7 +29,7 @@ export const useFetch = <T>(
 
     (async function () {
       try {
-        console.log('cache11>>', cache);
+        // console.log('cache11>>', cache);
         if (isCache && url in cache) {
           // console.log('cccccccccccccccc');
           return setResult(cache[url] as T);
@@ -45,7 +45,7 @@ export const useFetch = <T>(
         setError(undefined);
 
         if (isCache) cache[url] = data;
-        console.log('cache22>>', cache);
+        // console.log('cache22>>', cache);
         // console.log('useFetch.data>>', data);
         setResult(data);
       } catch (error) {

@@ -2,11 +2,12 @@ import { FaPlus } from 'react-icons/fa6';
 import Login from './Login.tsx';
 import Profile from './Profile.tsx';
 import Button from './atoms/Button.tsx';
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useSession } from './hooks/session-context.tsx';
 import Item from './Item.tsx';
 import useToggle from './hooks/toggle.ts';
-import { useTimeout } from './hooks/timer-hooks.ts';
+import { useDebounce, useTimeout } from './hooks/timer-hooks.ts';
+import { FaSearch } from 'react-icons/fa';
 
 export default function My() {
   const { session, toggleReloadSession } = useSession();
@@ -17,6 +18,18 @@ export default function My() {
   //   setIsAdding((pre) => !pre);
   // };
   const [isAdding, toggleAdding] = useToggle();
+
+  const [, toggleSearch] = useToggle();
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [searchstr, setSearchstr] = useState('');
+  useDebounce(
+    () => {
+      console.log('useDebounce.search>>', searchRef.current?.value);
+      setSearchstr(searchRef.current?.value || '');
+    },
+    2000,
+    [searchRef.current?.value]
+  );
 
   // const primitive = 123;
 
@@ -48,13 +61,13 @@ export default function My() {
     xxx++;
   }, 1000);
 
-  useTimeout(
-    (name) => {
-      console.log(name, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    },
-    1000,
-    'YENA'
-  );
+  // useTimeout(
+  //   (name) => {
+  //     console.log(name, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  //   },
+  //   1000,
+  //   'YENA'
+  // );
 
   useEffect(() => {
     // const abortController = new AbortController();
@@ -92,12 +105,24 @@ export default function My() {
       )}
 
       <ul className='mt-3 w-2/3 border p-3'>
+        <div className='flex items-center gap-2'>
+          <FaSearch />
+          <input
+            onChange={toggleSearch}
+            ref={searchRef}
+            type='text'
+            placeholder='아이템명 검색...'
+            className='inp'
+          />
+        </div>
         {session.cart?.length ? (
-          session.cart.map((item) => (
-            <li key={item.id}>
-              <Item item={item} />
-            </li>
-          ))
+          session.cart
+            .filter(({ name }) => name.includes(searchstr))
+            .map((item) => (
+              <li key={item.id}>
+                <Item item={item} />
+              </li>
+            ))
         ) : (
           <li className='text-slate-500'>There is no items.</li>
         )}
