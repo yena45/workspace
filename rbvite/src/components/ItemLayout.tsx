@@ -1,20 +1,39 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { CartItem } from './hooks/session-context';
+import { CartItem, useSession } from './hooks/session-context';
+import Button from './atoms/Button';
 
-// export default function ItemLayout() {
-//     const navigate = useNavigate();
-//     const [currItem, setCurrItem] = useState<CartItem>(cart[0]);
-//   const goItem = (id:number) => {
-//     setCurrItem(cart.find({id} => id===Number(itemId)))
+export default function ItemLayout() {
+  const {
+    session: { cart },
+  } = useSession();
 
-//   };
-//   return (
-//     <div className='flex justify-center'>
-//       <div className='w-full border'>List</div>
-//       <div className='w-full border'>
-//         <Outlet />
-//       </div>
-//     </div>
-//   );
-// }
+  const navigate = useNavigate();
+
+  const [currItem, setCurrItem] = useState<CartItem>(cart[0]);
+
+  const goItem = (id: number) => {
+    setCurrItem(cart.find(({ id: itemId }) => id === itemId)!);
+    // navigate(`/items/${id}`);
+    navigate(`${id}?q=${id}`);
+  };
+
+  return (
+    <div className='flex justify-between'>
+      <div className='w-full border'>
+        <h1 className='mb-3 text-3xl'>장바구니</h1>
+        <ul className='space-y-2'>
+          {cart.map(({ id, name }) => (
+            <li key={id}>
+              {/* <Link to={`${id}`}>{name}</Link> */}
+              <Button onClick={() => goItem(id)}>{name}</Button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className='w-full border'>
+        <Outlet context={currItem} />
+      </div>
+    </div>
+  );
+}
