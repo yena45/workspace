@@ -22,19 +22,6 @@ public class Trythis {
 		System.out.println("employee1 = " + employee1);
 		Employee employee2 = new Employee(2, "lee", 36000000, 20);
 		System.out.println("employee2 = " + employee2);
-		//
-		// Account account1 = new Account("11-111", "KIM", 20000);
-		// System.out.println("account1 = " + account1);
-		// Account account2 = new Account("22-222", "LEE", 100000);
-		// System.out.println("account2 = " + account2);
-		// Account account3 = new Account("33-333", "PARK", 50000);
-		// System.out.println("account3 = " + account3);
-		//
-		// account1.withdraw(100000);
-		// account1.deposit(100);
-		// account1.transferTo(account2, 500);
-
-		// System.out.println(account1);
 
 		while (true) {
 			Scanner sc = new Scanner(System.in);
@@ -72,7 +59,7 @@ public class Trythis {
 					account.transferTo(anotherAccount, anotherTransferAmount);
 
 					System.out.println("내 계좌 정보는 " + account);
-					System.out.println("상대 계좌 정보는 = " + anotherAccount);
+					System.out.println("상대 계좌 정보는 " + anotherAccount);
 					break;
 
 			}
