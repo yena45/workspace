@@ -1,6 +1,6 @@
-package trythis;
+package trythis.shape;
 
-public class Circle {
+public class Circle extends Shape {
 	private double radius = 1.0;
 	private String color = "red";
 
@@ -31,6 +31,11 @@ public class Circle {
 
 	public String toString() {
 		return "Circle[radius=%s]의 둘레는 %.1f, 면적은 %.1f".formatted(radius, this.getCircumference(), this.getArea());
+	}
+
+	@Override
+	double calArea() {
+		return getArea();
 	}
 
 }

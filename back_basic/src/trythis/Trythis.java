@@ -2,6 +2,9 @@ package trythis;
 
 import java.util.Scanner;
 
+import trythis.shape.Circle;
+import trythis.shape.Rectangle;
+
 public class Trythis {
 	private static String accountId;
 	private static String name;
