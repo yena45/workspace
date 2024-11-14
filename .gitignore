@@ -3,3 +3,4 @@ node_modules
 tmp
 ./ppp.txt
 ppp.txt
+*.sock

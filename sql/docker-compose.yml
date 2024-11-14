@@ -4,12 +4,12 @@ services:
     container_name: hana4db
     image: mysql:8.0
     ports:
-      - 3307:3307
+      - 3305:3306
     environment:
       MYSQL_ROOT_PASSWORD: TestdbRoot
       MYSQL_DATABASE: testdb
     command:
-      - --character-set-server=u
+      - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --log_bin_trust_function_creators=1
     volumes:
