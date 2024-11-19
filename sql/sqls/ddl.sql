@@ -23,3 +23,11 @@ create table Major (
   id tinyint unsigned not null auto_increment primary key comment '학과코드',
   name varchar(20) not null comment '학과명'
 );
+
+
+create table Prof(
+	id smallint unsigned not null auto_increment comment '교수 번호',
+    name varchar(31) not null comment '교수명',
+    likecnt int default 0,
+    primary key (id)
+);

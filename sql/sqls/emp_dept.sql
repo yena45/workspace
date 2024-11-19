@@ -3,7 +3,9 @@ show processlist;
 select * from mysql.user;
 
 select * from Emp;
+
 desc Emp;
+
 select * from Dept;
 
 ALTER TABLE Emp DROP COLUMN auth;
